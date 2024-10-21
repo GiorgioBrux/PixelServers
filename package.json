@@ -20,11 +20,9 @@
 		"@sveltejs/kit": "^2.7.2",
 		"@sveltejs/vite-plugin-svelte": "^4.0.0",
 		"@tailwindcss/typography": "^0.5.15",
-		"@types/d3-drag": "^3.0.7",
-		"@types/d3-fetch": "^3.0.7",
-		"@types/d3-geo": "^3.1.0",
-		"@types/d3-selection": "^3.0.11",
+		"@types/d3": "^7.4.3",
 		"@types/eslint": "^9.6.1",
+		"@types/topojson-client": "^3.1.5",
 		"autoprefixer": "^10.4.20",
 		"bits-ui": "^0.21.16",
 		"clsx": "^2.1.1",
@@ -48,9 +46,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"d3-drag": "^3.0.0",
-		"d3-fetch": "^3.0.1",
-		"d3-geo": "^3.1.1",
-		"d3-selection": "^3.0.0"
+		"d3": "^7.9.0",
+		"topojson-client": "^3.1.0"
 	}
 }
