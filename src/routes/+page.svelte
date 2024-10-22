@@ -1,13 +1,58 @@
-<script>
+<script lang="ts">
 	import { Button } from '$lib/components/ui/button';
 	import { Server, Cpu, Clock, X, Shield, Globe, Zap, ChevronRight } from 'lucide-svelte';
 	import PlanCard from '$lib/components/ui-giorgio/plan-card/plan-card.svelte';
 	import FeatureCard from '$lib/components/ui-giorgio/feature-card/feature-card.svelte';
+	import Badge from '$lib/components/ui/badge/badge.svelte';
 
 	// Import JSON data
 	import plans from '$lib/data/plans.json';
 	import BigGlobe from '$lib/components/ui-giorgio/big-globe/big-globe.svelte';
 	import dataCenters from '$lib/data/datacenters.json';
+	import { writable } from 'svelte/store';
+	import { onDestroy } from 'svelte';
+
+	const dataCentersStore = writable(dataCenters);
+
+	async function ping_test(url: string): Promise<number> {
+    if (typeof window === 'undefined') {
+        return 0;
+    }
+
+    const built_url = new URL(url);
+    built_url.searchParams.set('t', Date.now().toString()); // Cache-busting param
+	return 0;
+}
+
+
+
+
+
+	// Test the latency of each data center every 5 seconds
+
+	async function test_latency() {
+		const updatedCenters = await Promise.all(
+			$dataCentersStore.map(async (center) => {
+				if (!center.coming_soon && center.testing_ip) {
+					const latency = await ping_test(center.testing_ip);
+					console.log('Latency for ' + center.city + ' is ' + latency + 'ms');
+					return { ...center, latency };
+				}
+				return center;
+			})
+		);
+		dataCentersStore.set(updatedCenters);
+	}
+
+	if (typeof window !== 'undefined') {
+		const intervalId = setInterval(test_latency, 10000);
+		test_latency(); // Initial call
+
+		// Clean up the interval when the component is destroyed
+		onDestroy(() => {
+			clearInterval(intervalId);
+		});
+	}
 </script>
 
 <main class="flex-grow">
@@ -24,24 +69,68 @@
 		</div>
 		<div class="absolute inset-0 bg-[url('/images/minecraft-bg.jpg')] bg-cover bg-center opacity-20"></div>
 	</section>
-
 	<section class="bg-black bg-opacity-50 py-16 backdrop-blur-md">
-		<div class="container mx-auto">
-			<div class="mb-8 flex flex-col md:flex-row items-center justify-between">
-				<div class="w-full md:w-1/2 mb-8 md:mb-0 bg-purple-800 bg-opacity-50 rounded-xl p-8">
-					<h2 class="text-3xl font-bold text-white mb-4">Global Network of Data Centers</h2>
-					<p class="text-lg text-purple-200 mb-6">Experience lightning-fast connections with our strategically placed data centers around the world. Low latency, high performance, and unparalleled reliability for your Minecraft adventures.</p>
+		<div class="container mx-auto px-4">
+			<div class="flex flex-col items-center justify-between gap-8 md:flex-row md:gap-16">
+				<div class="w-full rounded-xl bg-purple-800 bg-opacity-50 p-6 md:w-1/2 md:p-8">
+					<h2 class="mb-4 text-2xl font-bold text-white md:text-3xl">Global Network of Data Centers</h2>
+					<p class="mb-6 text-base text-purple-200 md:text-lg">
+						Experience lightning-fast connections with our strategically placed data centers around the world. Low latency, high performance, and
+						unparalleled reliability for your Minecraft adventures.
+					</p>
 					<ul class="space-y-2">
-						{#each dataCenters as center}
+						{#each $dataCentersStore as center}
 							<li class="flex items-center text-white">
 								<Server class="mr-2 h-5 w-5 text-purple-400" />
 								{center.city}
+								{#if center.coming_soon}
+									<Badge class="ml-2 bg-purple-300">Soon</Badge>
+								{:else}
+									<span class="ml-2 text-purple-300">{center.latency}ms</span>
+									{#if center.latency !== undefined && center.latency < 100}
+										<Shield class="ml-2 h-5 w-5 text-green-400" />
+									{:else if center.latency !== undefined && center.latency < 200}
+										<Shield class="ml-2 h-5 w-5 text-yellow-400" />
+									{:else if center.latency !== undefined && center.latency >= 200}
+										<Shield class="ml-2 h-5 w-5 text-red-400" />
+									{/if}
+								{/if}
 							</li>
 						{/each}
 					</ul>
 				</div>
-				<div class="w-full md:w-1/2 h-[500px] rounded-xl t-bg-purple-800 t-bg-opacity-50 overflow-hidden relative">
-					<BigGlobe/>
+				<div class="relative px-12 aspect-square w-full overflow-visible md:w-1/2 md:max-w-md lg:max-w-lg xl:max-w-xl ">
+					<BigGlobe />
+				</div>
+			</div>
+			<div class="flex flex-col items-center justify-between gap-8 md:flex-row md:gap-16">
+				<div class="w-full md:w-1/2">
+					<img src="/images/iphone_minecraft.png" alt="Minecraft Features" class="drop-shadow-2xl" />
+				</div>
+				<div class="w-full rounded-xl bg-purple-800 bg-opacity-50 p-6 text-white md:w-1/2 md:p-8">
+					<h2 class="mb-4 text-3xl font-bold md:text-4xl">Java or Bedrock?</h2>
+					<p class="mb-6 text-xl">
+						We've got you covered! Our servers support both Java and Bedrock editions of Minecraft, allowing players from all platforms to join the
+						fun at the same time.
+					</p>
+					<ul class="space-y-2">
+						<li class="flex items-center">
+							<Shield class="mr-2 h-6 w-6 text-purple-300" />
+							<span>Cross-platform compatibility</span>
+						</li>
+						<li class="flex items-center">
+							<Shield class="mr-2 h-6 w-6 text-purple-300" />
+							<span>Seamless integration for both editions</span>
+						</li>
+						<li class="flex items-center">
+							<Shield class="mr-2 h-6 w-6 text-purple-300" />
+							<span>Play with friends regardless of their platform</span>
+						</li>
+					</ul>
+					<Button class="mt-8 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
+						Learn More
+						<ChevronRight class="ml-2 h-5 w-5" />
+					</Button>
 				</div>
 			</div>
 		</div>

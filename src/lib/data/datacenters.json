@@ -1,14 +1,14 @@
 [
 	{
-		"city": "New York",
-		"coordinates": [-74.006, 40.7128]
-	},
-	{
-		"city": "London",
-		"coordinates": [-0.1276, 51.5074]
+		"city": "Nuremberg",
+		"coordinates": [11.0767, 49.4521],
+        "testing_ip": "https://nbg1-speed.hetzner.com",
+        "coming_soon": false,
+        "latency": 0
 	},
 	{
 		"city": "Tokyo",
-		"coordinates": [139.6917, 35.6895]
+		"coordinates": [139.6917, 35.6895],
+        "coming_soon": true
 	}
 ]
