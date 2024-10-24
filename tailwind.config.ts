@@ -57,9 +57,17 @@ const config: Config = {
 			fontFamily: {
 				sans: [...fontFamily.sans]
 			},
+			// Marquees
 			animation: {
+				// Marquee
 				marquee: "marquee var(--duration) linear infinite",
 				"marquee-vertical": "marquee-vertical var(--duration) linear infinite",
+				// Gradient animation
+				first: 'moveVertical 45s ease infinite', // Slowed from 30s to 45s
+				second: 'moveInCircle 35s reverse infinite', // Slowed from 20s to 35s
+				third: 'moveInCircle 55s linear infinite', // Slowed from 40s to 55s
+				fourth: 'moveHorizontal 55s ease infinite', // Slowed from 40s to 55s
+				fifth: 'moveInCircle 35s ease infinite' // Slowed from 20s to 35s
 			},
 			keyframes: {
 				marquee: {
@@ -70,6 +78,40 @@ const config: Config = {
 					from: { transform: "translateY(0)" },
 					to: { transform: "translateY(calc(-100% - var(--gap)))" },
 				},
+				// Gradient animations
+				moveHorizontal: {
+					'0%': {
+						transform: 'translateX(-50%) translateY(-10%)'
+					},
+					'50%': {
+						transform: 'translateX(50%) translateY(10%)'
+					},
+					'100%': {
+						transform: 'translateX(-50%) translateY(-10%)'
+					}
+				},
+				moveInCircle: {
+					'0%': {
+						transform: 'rotate(0deg)'
+					},
+					'50%': {
+						transform: 'rotate(180deg)'
+					},
+					'100%': {
+						transform: 'rotate(360deg)'
+					}
+				},
+				moveVertical: {
+					'0%': {
+						transform: 'translateY(-50%)'
+					},
+					'50%': {
+						transform: 'translateY(50%)'
+					},
+					'100%': {
+						transform: 'translateY(-50%)'
+					}
+				}
 			},
 		},
 	},

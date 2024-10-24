@@ -13,6 +13,7 @@
 	import { onDestroy } from 'svelte';
 	import ModsPluginsMarquee from '$lib/components/ui-giorgio/mods-plugins-marquee/mods-plugins-marquee.svelte';
 	import { features } from '$lib/data/staticData.svelte';
+	import GradientAnimation from '$lib/components/ui-aceternity-svelte/gradient-animation/gradient-animation.svelte';
 
 	const dataCentersStore = writable(dataCenters);
 
@@ -136,139 +137,140 @@
 	<section class="relative overflow-hidden bg-gradient-to-b from-purple-900 to-black py-8">
 		<!-- Background Glow Effects -->
 		<div class="absolute inset-0 overflow-hidden">
-		  <div class="absolute -left-1/4 top-0 h-[500px] w-[500px] rounded-full bg-purple-500/20 blur-3xl"></div>
-		  <div class="absolute -right-1/4 bottom-0 h-[500px] w-[500px] rounded-full bg-indigo-500/20 blur-3xl"></div>
+			<div class="absolute -left-1/4 top-0 h-[500px] w-[500px] rounded-full bg-purple-500/20 blur-3xl"></div>
+			<div class="absolute -right-1/4 bottom-0 h-[500px] w-[500px] rounded-full bg-indigo-500/20 blur-3xl"></div>
 		</div>
-	  
+
 		<!-- Contained Header -->
 		<div class="container relative mx-auto px-4">
-		  <div class="mx-auto mb-16 max-w-3xl text-center">
-			<h2 class="bg-gradient-to-r from-purple-200 to-pink-200 bg-clip-text pb-2 text-4xl font-bold text-transparent md:text-5xl">
-			  Mods? Plugins? We got em' all
-			</h2>
-			<p class="mt-2 text-lg text-purple-200 md:text-xl">
-			  One-click installs for hundreds of popular mods and plugins. No technical expertise needed.
-			</p>
-		  </div>
+			<div class="mx-auto mb-16 max-w-3xl text-center">
+				<h2 class="bg-gradient-to-r from-purple-200 to-pink-200 bg-clip-text pb-2 text-4xl font-bold text-transparent md:text-5xl">
+					Mods? Plugins? We got em' all
+				</h2>
+				<p class="mt-2 text-lg text-purple-200 md:text-xl">
+					One-click installs for hundreds of popular mods and plugins. No technical expertise needed.
+				</p>
+			</div>
 		</div>
-	  
+
 		<!-- Full-width Marquee -->
 		<div class="relative w-full">
-		  <ModsPluginsMarquee />
+			<ModsPluginsMarquee />
 		</div>
-	  </section>
+	</section>
 
-
-
-
-	  <section class="relative overflow-hidden bg-gradient-to-b from-black to-purple-900 py-24">
+	<section class="relative overflow-hidden bg-gradient-to-b from-black to-purple-900 py-24">
 		<div class="absolute inset-0 overflow-hidden">
-		  <div class="absolute -left-1/4 top-0 h-[500px] w-[500px] rounded-full bg-purple-500/20 blur-3xl"></div>
-		  <div class="absolute -right-1/4 bottom-0 h-[500px] w-[500px] rounded-full bg-indigo-500/20 blur-3xl"></div>
+			<div class="absolute -left-1/4 top-0 h-[500px] w-[500px] rounded-full bg-purple-500/20 blur-3xl"></div>
+			<div class="absolute -right-1/4 bottom-0 h-[500px] w-[500px] rounded-full bg-indigo-500/20 blur-3xl"></div>
 		</div>
-	  
-		<div class="container relative mx-auto px-4">
-		  <div class="mx-auto mb-16 max-w-3xl text-center">
-			<h2 class="bg-gradient-to-r from-purple-200 to-pink-200 bg-clip-text text-4xl font-bold text-transparent md:text-5xl">
-			  So Much More
-			</h2>
-			<p class="mt-4 text-lg text-purple-200 md:text-xl">
-			  Everything you need, right at your fingertips
-			</p>
-		  </div>
-	  
-		  <div class="relative mx-auto max-w-5xl">
-			<div class="flex flex-wrap justify-center gap-3">
-			  {#each features as feature}
-				<div class="flex items-center rounded-full border border-purple-300/10 bg-purple-950/40 px-4 py-2 backdrop-blur-sm 
-							transition-colors duration-200 hover:border-purple-300/20">
-				  <feature.icon class="mr-2 h-4 w-4 text-purple-400" />
-				  <span class="text-sm font-medium text-purple-100">{feature.title}</span>
-				</div>
-			  {/each}
-			</div>
-		  </div>
-		</div>
-	  </section>
-	  
-	  
 
-	  <section class="relative overflow-hidden bg-gradient-to-b from-indigo-900 to-black py-24">
-		<!-- Background Glow Effects -->
-		<div class="absolute inset-0 overflow-hidden">
-		  <div class="absolute left-1/4 top-0 h-[400px] w-[400px] rounded-full bg-purple-500/10 blur-[100px]"></div>
-		  <div class="absolute right-1/4 bottom-0 h-[400px] w-[400px] rounded-full bg-pink-500/10 blur-[100px]"></div>
-		</div>
-	  
 		<div class="container relative mx-auto px-4">
-		  <div class="mx-auto max-w-3xl text-center">
-			<h2 class="mb-2 bg-gradient-to-r from-purple-200 to-pink-200 bg-clip-text pb-4 text-5xl font-bold text-transparent md:text-6xl">
-			  Ready to Start?
-			</h2>
-			<p class="mb-10 text-xl text-purple-200 md:text-2xl">
-			  Choose your plan and start your adventure in minutes
-			</p>
-	  
-			<div class="flex flex-col items-center justify-center gap-6 sm:flex-row">
-			  <Button 
-				size="lg" 
-				class="group relative bg-gradient-to-r from-purple-500 to-pink-500 px-8 py-4 text-lg font-bold hover:from-purple-600 hover:to-pink-600"
-				href="/plans"
-			  >
-				View Our Plans
-				<span class="ml-2 inline-block transition-transform duration-200 group-hover:translate-x-1">
-				  <ChevronRight class="h-5 w-5" />
-				</span>
-			  </Button>
-	  
-			  <Button 
-				class="bg-purple-900/50 text-purple-100 hover:bg-purple-800/60 border border-purple-300/10 hover:border-purple-300/20 backdrop-blur-sm"
-				variant="ghost"
-				size="lg"
-				href="/features"
-			  >
-				Learn More
-				<ChevronRight class="ml-2 h-5 w-5" />
-			  </Button>
+			<div class="mx-auto mb-16 max-w-3xl text-center">
+				<h2 class="bg-gradient-to-r from-purple-200 to-pink-200 bg-clip-text text-4xl font-bold text-transparent md:text-5xl">So Much More</h2>
+				<p class="mt-4 text-lg text-purple-200 md:text-xl">Everything you need, right at your fingertips</p>
 			</div>
-	  
-			<!-- Team Support Section -->
-			<div class="mt-16 relative">
-			  <div class="absolute inset-0 bg-gradient-to-r from-purple-900/0 via-purple-900/30 to-purple-900/0 blur-sm"></div>
-			  <div class="relative grid grid-cols-1 md:grid-cols-3 gap-8 items-center p-8 rounded-2xl border border-purple-300/10 backdrop-blur-sm">
-				<!-- Support Stats -->
-				<div class="flex flex-col items-center space-y-2 p-4">
-				  <Clock class="h-8 w-8 text-purple-300 mb-2" />
-				  <span class="text-3xl font-bold text-purple-100">24/7</span>
-				  <span class="text-purple-300">Support Available</span>
-				</div>
-	  
-				<!-- Team Message -->
-				<div class="flex flex-col items-center space-y-4 p-4">
-				  <div class="flex -space-x-4">
-					{#each Array(4) as _, i}
-					  <div class="relative w-10 h-10 overflow-hidden rounded-full border-2 border-purple-900 bg-gradient-to-r from-purple-400 to-pink-400">
-						<img
-						  src={`/team-member-${i + 1}.jpg`}
-						  alt="Team member"
-						  class="w-full h-full object-cover"
-						/>
-					  </div>
+
+			<div class="relative mx-auto max-w-5xl">
+				<div class="flex flex-wrap justify-center gap-3">
+					{#each features as feature}
+						<div
+							class="flex items-center rounded-full border border-purple-300/10 bg-purple-950/40 px-4 py-2 backdrop-blur-sm
+							transition-colors duration-200 hover:border-purple-300/20"
+						>
+							<feature.icon class="mr-2 h-4 w-4 text-purple-400" />
+							<span class="text-sm font-medium text-purple-100">{feature.title}</span>
+						</div>
 					{/each}
-				  </div>
-				  <p class="text-purple-200 text-lg">Our expert team is ready to help you succeed</p>
 				</div>
-	  
-				<!-- Response Time -->
-				<div class="flex flex-col items-center space-y-2 p-4">
-				  <Zap class="h-8 w-8 text-purple-300 mb-2" />
-				  <span class="text-3xl font-bold text-purple-100">15m</span>
-				  <span class="text-purple-300">Average Response</span>
-				</div>
-			  </div>
 			</div>
-		  </div>
 		</div>
-	  </section>
-	  
+	</section>
+
+	<section class="anale relative overflow-hidden py-24">
+		<GradientAnimation
+		  gradientBackgroundStart="rgb(49, 46, 129)"
+		  gradientBackgroundEnd="rgb(30, 27, 75)"
+		  firstColor="79, 70, 229"
+		  secondColor="99, 102, 241"
+		  thirdColor="67, 56, 202"
+		  fourthColor="55, 48, 163"
+		  fifthColor="139, 92, 246"
+		  pointerColor="79, 70, 229"
+		  size="130%"
+		  blendingValue="soft-light"
+		  containerClassName="absolute inset-0 w-full h-full opacity-20"
+		/>
+	
+
+		<div class="absolute inset-0 overflow-hidden">
+			<div class="absolute left-1/4 top-0 h-[400px] w-[400px] rounded-full bg-purple-500/10 blur-[100px]"></div>
+			<div class="absolute right-1/4 bottom-0 h-[400px] w-[400px] rounded-full bg-pink-500/10 blur-[100px]"></div>
+		  </div>
+
+		<div class="container relative mx-auto px-4">
+			<div class="mx-auto max-w-3xl text-center">
+				<h2
+					class="mb-2 bg-gradient-to-r from-purple-200 to-pink-200 bg-clip-text pb-4 text-5xl font-bold text-transparent md:text-6xl"
+				>
+					Ready to Start?
+				</h2>
+				<p class="mb-10 text-xl text-purple-200 md:text-2xl">Choose your plan and start your adventure in minutes</p>
+
+				<div class="flex flex-col items-center justify-center gap-6 sm:flex-row">
+					<Button
+						size="lg"
+						class="group relative bg-gradient-to-r from-purple-600 to-pink-500 px-8 py-4 text-lg font-bold hover:from-purple-700 hover:to-pink-600"
+					>
+						View Our Plans
+						<span class="ml-2 inline-block transition-transform duration-200 group-hover:translate-x-1">
+							<ChevronRight class="h-5 w-5" />
+						</span>
+					</Button>
+
+					<Button
+						class="group border border-purple-300/10 bg-purple-800/40 text-lg text-purple-100 hover:text-white backdrop-blur-sm hover:border-purple-300/20 hover:bg-purple-700/50"
+						variant="ghost"
+						size="lg"
+					>
+						Learn More
+						<span class="ml-2 inline-block transition-transform duration-200 group-hover:translate-x-1">
+							<ChevronRight class="h-5 w-5" />
+						</span>
+					</Button>
+				</div>
+
+				<div class="relative mt-16">
+					<div
+						class="relative grid grid-cols-1 items-center gap-8 rounded-2xl border border-purple-400/10 bg-purple-800/20 p-8 backdrop-blur-sm md:grid-cols-3"
+					>
+						<div class="flex flex-col items-center space-y-2 p-4">
+							<Clock class="mb-2 h-8 w-8 text-purple-200" />
+							<span class="text-3xl font-bold text-purple-100">24/7</span>
+							<span class="text-purple-200">Support Available</span>
+						</div>
+
+						<div class="flex flex-col items-center space-y-4 p-4">
+							<div class="flex -space-x-4">
+								{#each Array(4) as _, i}
+									<div
+										class="relative h-10 w-10 overflow-hidden rounded-full border-2 border-purple-800 bg-gradient-to-r from-purple-500 to-pink-500"
+									>
+										<img src={`/team-member-${i + 1}.jpg`} alt="Team member" class="h-full w-full object-cover" />
+									</div>
+								{/each}
+							</div>
+							<p class="text-lg text-purple-200">Our expert team is ready to help you succeed</p>
+						</div>
+
+						<div class="flex flex-col items-center space-y-2 p-4">
+							<Zap class="mb-2 h-8 w-8 text-purple-200" />
+							<span class="text-3xl font-bold text-purple-100">15m</span>
+							<span class="text-purple-200">Average Response</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 </main>
