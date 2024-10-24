@@ -1,21 +1,21 @@
 [
-    {
-      "name": "Starter",
-      "price": 9.99,
-      "description": "Perfect for small groups",
-      "features": ["2GB RAM", "Unlimited Player Slots", "NVMe Storage", "Daily Backups", "Mod Support", "Plugin Support"]
-    },
-    {
-      "name": "Pro",
-      "price": 24.99,
-      "description": "Ideal for growing communities",
-      "features": ["8GB RAM", "Unlimited Player Slots", "NVMe Storage", "Hourly Backups", "Mod Support", "Plugin Support"]
-    },
-    {
-      "name": "Ultimate",
-      "price": 49.99,
-      "description": "For large servers and modpacks",
-      "features": ["16GB RAM", "Unlimited Player Slots", "NVMe Storage", "Hourly Backups", "Mod Support", "Plugin Support"]
-    }
-  ]
+  {
+    "name": "Starter",
+    "price": 9.99,
+    "description": "Perfect for small groups",
+    "features": ["2GB RAM", "Unlimited Player Slots", "NVMe Storage", "Daily Backups", "Mod Support", "Plugin Support"]
+  },
+  {
+    "name": "Pro",
+    "price": 24.99,
+    "description": "Ideal for growing communities",
+    "features": ["8GB RAM", "Unlimited Player Slots", "NVMe Storage", "Hourly Backups", "Mod Support", "Plugin Support"]
+  },
+  {
+    "name": "Ultimate",
+    "price": 49.99,
+    "description": "For large servers and modpacks",
+    "features": ["16GB RAM", "Unlimited Player Slots", "NVMe Storage", "Hourly Backups", "Mod Support", "Plugin Support"]
+  }
+]
   
