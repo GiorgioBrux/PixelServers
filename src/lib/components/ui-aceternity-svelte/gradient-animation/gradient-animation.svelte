@@ -128,6 +128,7 @@
 			<div
 				bind:this={interactiveRef}
 				on:mousemove={handleMouseMove}
+				role="presentation"
 				class={cn(
 					`absolute [background:radial-gradient(circle_at_center,_rgba(var(--pointer-color),_0.8)_0,_rgba(var(--pointer-color),_0)_50%)_no-repeat]`,
 					`-left-1/2 -top-1/2 h-full w-full [mix-blend-mode:var(--blending-value)]`,
