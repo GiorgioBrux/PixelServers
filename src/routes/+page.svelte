@@ -1,12 +1,9 @@
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button';
 	import { Server, Cpu, Clock, X, Shield, Globe, Zap, ChevronRight } from 'lucide-svelte';
-	import PlanCard from '$lib/components/ui-giorgio/plan-card/plan-card.svelte';
-	import FeatureCard from '$lib/components/ui-giorgio/feature-card/feature-card.svelte';
 	import Badge from '$lib/components/ui/badge/badge.svelte';
 
 	// Import JSON data
-	import plans from '$lib/data/plans.json';
 	import BigGlobe from '$lib/components/ui-giorgio/big-globe/big-globe.svelte';
 	import dataCenters from '$lib/data/datacenters.json';
 	import { writable } from 'svelte/store';
@@ -14,6 +11,11 @@
 	import ModsPluginsMarquee from '$lib/components/ui-giorgio/mods-plugins-marquee/mods-plugins-marquee.svelte';
 	import { features } from '$lib/data/staticData.svelte';
 	import GradientAnimation from '$lib/components/ui-aceternity-svelte/gradient-animation/gradient-animation.svelte';
+	import { popularMods, popularModpacks } from '$lib/data/staticData.svelte';
+
+
+	console.log(popularModpacks)
+	$inspect(popularMods)
 
 	const dataCentersStore = writable(dataCenters);
 
@@ -66,7 +68,7 @@
 				>Start Your Adventure</Button
 			>
 		</div>
-		<div class="absolute inset-0 bg-[url('/images/minecraft-bg.jpg')] bg-cover bg-center opacity-20"></div>
+		<div class="absolute inset-0 bg-[url('/images/home/minecraft-bg.jpg')] bg-cover bg-center opacity-20"></div>
 	</section>
 	<section class="bg-black bg-opacity-50 pb-16 backdrop-blur-md">
 		<div class="container mx-auto px-4">
@@ -104,7 +106,7 @@
 			</div>
 			<div class="flex flex-col items-center justify-between gap-8 md:flex-row md:gap-16">
 				<div class="w-full md:w-1/2">
-					<img src="/images/iphone_minecraft.png" alt="Minecraft Features" class="drop-shadow-2xl" />
+					<img src="/images/home/iphone_minecraft.png" alt="Minecraft Features" class="drop-shadow-2xl" />
 				</div>
 				<div class="w-full rounded-xl bg-purple-800 bg-opacity-50 p-6 text-white md:w-1/2 md:p-8">
 					<h2 class="mb-4 text-3xl font-bold md:text-4xl">Java or Bedrock?</h2>
@@ -142,7 +144,7 @@
 		</div>
 
 		<!-- Contained Header -->
-		<div class="container relative mx-auto px-4">
+		<div class="container relative mx-auto px-4 mt-8">
 			<div class="mx-auto mb-16 max-w-3xl text-center">
 				<h2 class="bg-gradient-to-r from-purple-200 to-pink-200 bg-clip-text pb-2 text-4xl font-bold text-transparent md:text-5xl">
 					Mods? Plugins? We got em' all
@@ -152,10 +154,9 @@
 				</p>
 			</div>
 		</div>
-
 		<!-- Full-width Marquee -->
 		<div class="relative w-full">
-			<ModsPluginsMarquee />
+			<ModsPluginsMarquee mods={popularMods} modpacks={popularModpacks} />
 		</div>
 	</section>
 
@@ -167,7 +168,7 @@
 
 		<div class="container relative mx-auto px-4">
 			<div class="mx-auto mb-16 max-w-3xl text-center">
-				<h2 class="bg-gradient-to-r from-purple-200 to-pink-200 bg-clip-text text-4xl font-bold text-transparent md:text-5xl">So Much More</h2>
+				<h2 class="bg-gradient-to-r from-purple-200 to-pink-200 bg-clip-text text-4xl font-bold text-transparent md:text-5xl">And So Much More</h2>
 				<p class="mt-4 text-lg text-purple-200 md:text-xl">Everything you need, right at your fingertips</p>
 			</div>
 

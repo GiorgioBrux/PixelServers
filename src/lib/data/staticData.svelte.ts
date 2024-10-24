@@ -1,5 +1,5 @@
 //Data Leyout
-export { menu, legal, features };
+export { menu, legal, features, popularMods, popularModpacks};
 export type {Plans}
 
 import { Shield, Cpu, Zap, Map, Users, Clock, Lock, Database, Cloud, Globe, Bot, Download, Gauge, Gift, Heart, Server, Settings, Star, Terminal, Wifi, Gamepad, Blocks, Bookmark, Boxes, Coins, Command, FileJson, HardDrive, Laptop, LayoutGrid, MessageSquare, MonitorPlay, Puzzle, Rocket, ScrollText, Share2, ShieldCheck, Siren, Sparkles, Workflow } from 'lucide-svelte';
@@ -157,3 +157,122 @@ const features = [
     { title: 'Save States', icon: Bookmark },
     { title: 'Economy System', icon: Coins }
   ];
+
+
+
+  export interface Mod {
+    name: string;
+    description: string;
+    imgType: 'png' | 'gif';
+    type: 'mod';
+  }
+
+export interface Modpack {
+        name: string;
+        description: string;
+        imgType: 'png' | 'gif';
+        type: 'modpack';
+    }
+
+  const popularMods: Mod[] = [
+    {
+      name: "Create",
+      description: "A highly polished and innovative tech mod focused on realistic machinery, automation, and aesthetically pleasing contraptions.",
+      imgType: "png",
+      type: "mod"
+    },
+    {
+      name: "Applied Energistics 2",
+      description: "Advanced storage system mod that lets you store items digitally and automate crafting through advanced networks.",
+      imgType: "gif",
+      type: "mod"
+    },
+    {
+      name: "Botania",
+      description: "Magic tech mod themed around natural magic and beautiful flowers, offering unique automation and tools.",
+      imgType: "png",
+      type: "mod"
+    },
+    {
+      name: "JEI (Just Enough Items)",
+      description: "Essential mod that shows all items and their recipes, making crafting and mod exploration much easier.",
+      imgType: "png",
+      type: "mod"
+    },
+    {
+      name: "Tinkers' Construct",
+      description: "Comprehensive tool crafting mod allowing custom tool creation with various materials and modifications.",
+      imgType: "png",
+      type: "mod"
+    },
+    {
+      name: "Mekanism",
+      description: "Advanced tech mod adding complex machines, tools, and a comprehensive power generation system.",
+      imgType: "png",
+      type: "mod"
+    },
+    {
+      name: "Sophisticated Backpacks",
+      description: "Advanced storage solution adding customizable backpacks with auto-sorting, crafting, and filtering capabilities.",
+      imgType: "png",
+      type: "mod"
+    },
+    {
+      name: "Farmer's Delight",
+      description: "Cooking and farming expansion adding new crops, foods, and cooking mechanics for a more immersive experience.",
+      imgType: "png",
+      type: "mod"
+    }
+  ];
+  
+  const popularModpacks: Modpack[] = [
+    {
+      name: "Better MC (BMC4)",
+      description: "A carefully curated collection of mods focusing on enhancement and expansion of vanilla gameplay with new content.",
+      imgType: "png",
+      type: "modpack"
+    },
+    {
+      name: "RLCraft",
+      description: "Challenging modpack that transforms Minecraft into a difficult realistic fantasy RPG experience.",
+      imgType: "png",
+      type: "modpack"
+    },
+    {
+      name: "Vault Hunters",
+      description: "RPG-styled modpack featuring unique vault running mechanics, skill systems, and extensive progression.",
+      imgType: "png",
+      type: "modpack"
+    },
+    {
+      name: "Create: Above and Beyond",
+      description: "Tech-focused modpack centered around Create mod with complex automation challenges and progression.",
+      imgType: "png",
+      type: "modpack"
+    },
+    {
+      name: "All the Mods 10",
+      description: "Massive kitchen sink modpack containing most popular mods with careful balance and integration.",
+      imgType: "png",
+      type: "modpack"
+    },
+    {
+      name: "FTB Academy",
+      description: "Perfect for newcomers, teaching mod mechanics through quests and guided progression.",
+      imgType: "png",
+      type: "modpack"
+    },
+    {
+      name: "Enigmatica 10",
+      description: "Well-balanced expert modpack with quest-based progression and extensive mod integration.",
+      imgType: "png",
+      type: "modpack"
+    },
+    {
+      name: "SkyFactory 4",
+      description: "Popular skyblock modpack with unique resource generation and automation challenges.",
+      imgType: "png",
+      type: "modpack"
+    }
+  ];
+  

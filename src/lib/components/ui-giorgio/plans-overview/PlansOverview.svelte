@@ -5,7 +5,6 @@
 		plans,
 		overlayFrom,
 		overlayTo,
-		backgroundImage,
 		classNames,
 		isNerdMode = false // Add this for the nerd mode toggle
 	}: {
@@ -14,7 +13,6 @@
 		plans: Plans[];
 		overlayFrom?: string;
 		overlayTo?: string;
-		backgroundImage?: string;
 		classNames?: string;
 		isNerdMode?: boolean;
 	} = $props();
