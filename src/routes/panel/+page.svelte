@@ -8,21 +8,35 @@
   );
 </script>
 
-<main class="flex-grow bg-gradient-to-b from-purple-800 to-indigo-900">
-    <section class="container flex justify-center">
-        <h1>ciao</h1>
-        <ScrollArea class="h-72 w-2/6 rounded-md border">
-            <div class="p-4">
-              <h4 class="mb-4 text-sm font-medium leading-none">Tags</h4>
-              {#each tags as tag}
-                <div class="text-sm">
-                  {tag}
-                </div>
-                <Separator class="my-2" />
-              {/each}
+<main class="flex-grow bg-gradient-to-b from-purple-800 to-indigo-900 flex">
+
+  <section class="container flex grow">
+      <ScrollArea class="h-72 grow rounded-md border">
+          <div class="p-4">
+            <h4 class="mb-4 text-sm font-medium leading-none">Console</h4>
+            {#each tags as tag}
+              <div class="text-sm">
+                {tag}
+              </div>
+              <Separator class="my-2" />
+            {/each}
+          </div>
+      </ScrollArea>
+  </section>
+
+  <section class="container flex w-[40%]">
+    <ScrollArea class="h-72 grow rounded-md border">
+        <div class="p-4">
+          <h4 class="mb-4 text-sm font-medium leading-none">Console</h4>
+          {#each tags as tag}
+            <div class="text-sm">
+              {tag}
             </div>
-        </ScrollArea>
-    </section>
+            <Separator class="my-2" />
+          {/each}
+        </div>
+    </ScrollArea>
+  </section>
 
     
 </main>

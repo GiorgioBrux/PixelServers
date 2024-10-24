@@ -16,7 +16,6 @@
 	let rotation: [number, number, number] = [0, -30, 0]; // Initial rotation for the default rotation effect
 	let sphere: GeoPermissibleObjects = { type: 'Sphere', geometries: [] }; // Globe Outline
 	let land: GeoPermissibleObjects;
-	let graticule = geoGraticule(); // Creates the latitude and longitude lines
 
 	let rotating = true; // Default state for rotation
 	let rotationAngle = 0;
@@ -86,6 +85,8 @@
 		rotate();
 	}
 
+	
+
 	onMount(async () => {
 		// Geo Data from World-Atlas
 		land = feature(world as any, world.objects.land as any);
@@ -119,9 +120,6 @@
 
 			<!-- Land with color fill matching the theme -->
 			<path d={path(land)} fill="#6D28D9" stroke="#312E81" />
-
-			<!-- Latitude and Longitude lines styled similarly -->
-			<path d={path(graticule())} fill="none" stroke="rgba(156,163,175,0.5)" />
 		</g>
 
 		<!-- Data centers with pulsing effect -->

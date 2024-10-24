@@ -1,18 +1,31 @@
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button';
 	import { Separator } from '$lib/components/ui/separator';
-	import { Check, Settings2, Info, Earth } from 'lucide-svelte';
+	import { Check, Settings2, Info, Earth, ChevronsUpDown } from 'lucide-svelte';
 	import PlansOverview from '$lib/components/ui-giorgio/plans-overview/PlansOverview.svelte';
 	import { features } from '$lib/data/staticData.svelte';
 	import * as Icon from 'svelte-flags';
-	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import { Loader2 } from 'lucide-svelte';
+	import * as Popover from '$lib/components/ui/popover';
+	import * as Command from '$lib/components/ui/command';
+	import * as ScrollArea from '$lib/components/ui/scroll-area';
+	import { tick } from 'svelte';
+	import { cn } from '$lib/utils.js';
 
 	let isNerdMode = $state(false);
 	let selectedCountry = $state('Us');
 	const { data } = $props();
-
 	const titleCase = (str: string) => `${str[0].toUpperCase()}${str.slice(1).toLowerCase()}`;
+
+	let open = $state(false);
+	let selectedValue = $derived(data.countries.find((c) => c.code === selectedCountry)?.name ?? 'Select country...');
+
+	function closeAndFocusTrigger(triggerId: string) {
+		open = false;
+		tick().then(() => {
+			document.getElementById(triggerId)?.focus();
+		});
+	}
 </script>
 
 <main class="flex-grow bg-gradient-to-b from-purple-800 to-indigo-900">
@@ -28,42 +41,80 @@
 			<div class="flex flex-wrap items-center gap-4">
 				<!-- Country Selector -->
 				<div class="flex items-center gap-2">
-					<DropdownMenu.Root>
-						<DropdownMenu.Trigger class="flex items-center gap-2 rounded-md bg-black/30 px-3 py-1.5 text-sm text-white hover:bg-black/40">
-							<Earth class="h-4 w-4 text-purple-400" />
-							{#if selectedCountry}
-								{@const FlagComponent = (Icon as Record<string, any>)[titleCase(selectedCountry)]}
-								{#if FlagComponent}
-									<FlagComponent size="20" />
-								{/if}
-							{/if}
-							<span>{data.countries.find((c: { code: string }) => c.code === selectedCountry)?.name}</span>
-							<span class="text-white/60">
-								({data.countries.find((c: { code: string }) => c.code === selectedCountry)?.currency})
-							</span>
-						</DropdownMenu.Trigger>
-						<DropdownMenu.Content>
-							{#each data.countries as country}
-								<DropdownMenu.Item
-									on:click={() => {
-										selectedCountry = country.code;
-									}}
-									class="flex cursor-pointer items-center gap-2 rounded-sm px-3 py-2 hover:bg-white/10"
-								>
-									{@const FlagComponent = (Icon as Record<string, any>)[titleCase(country.code)]}
-									{#if FlagComponent}
-										<FlagComponent size="20" />
+					<Popover.Root bind:open let:ids>
+						<Popover.Trigger asChild let:builder>
+							<Button
+								builders={[builder]}
+								variant="outline"
+								role="combobox"
+								aria-expanded={open}
+								class="h-9 w-[300px] items-center justify-between bg-black/30 text-white border-none transition-all duration-200 hover:bg-purple-500/20 group"
+							>
+								<div class="flex items-center gap-2 flex-1 min-w-0">
+									<Earth class="h-4 w-4 shrink-0 text-purple-400 group-hover:text-purple-300" />
+									{#if selectedCountry}
+										{@const FlagComponent = (Icon as Record<string, any>)[titleCase(selectedCountry)]}
+										{#if FlagComponent}
+											<FlagComponent size="16" class="shrink-0" />
+										{/if}
+										<span class="truncate text-white group-hover:text-white">{data.countries.find((c) => c.code === selectedCountry)?.name}</span>
+										<span class="shrink-0 text-white/60 group-hover:text-white/80 ml-1">
+											({data.countries.find((c) => c.code === selectedCountry)?.currency})
+										</span>
 									{/if}
-									<span class="text-white">{country.name}</span>
-									<span class="ml-auto text-white/60">({country.currency})</span>
-								</DropdownMenu.Item>
-							{/each}
-						</DropdownMenu.Content>
-					</DropdownMenu.Root>
+								</div>
+								<ChevronsUpDown class="ml-2 h-4 w-4 shrink-0 opacity-50 group-hover:opacity-80" />
+							</Button>
+						</Popover.Trigger>
+						
+						<Popover.Content class="w-[300px] p-0 bg-black/80 backdrop-blur-lg border-none shadow-xl">
+							<Command.Root class="bg-transparent">
+
+								<Command.Input 
+								placeholder="Search countries..." 
+								class="h-9 border-none bg-transparent text-sm text-white placeholder:text-white/60 focus:ring-0 focus:outline-none px-3 [&_svg]:text-white [&_svg]:opacity-70"
+							/>
+								<Command.List>
+									<Command.Empty class="py-2 px-3 text-sm text-white/60">
+										No country found.
+									</Command.Empty>
+									<ScrollArea.Root class="h-[180px]">
+										<div class="p-1">
+											{#each data.countries as country}
+												{@const FlagComponent = (Icon as Record<string, any>)[titleCase(country.code)]}
+												<Command.Item
+													value={country.name}
+													class="flex cursor-pointer items-center gap-2 px-2 py-1.5 text-sm text-white rounded-lg transition-colors duration-200
+														   hover:bg-purple-500/20 hover:text-purple-200
+														   data-[selected=true]:bg-purple-500/30 data-[selected=true]:text-purple-100"
+													onSelect={() => {
+														selectedCountry = country.code;
+														closeAndFocusTrigger(ids.trigger);
+													}}
+												>
+													{#if FlagComponent}
+														<FlagComponent size="16" class="shrink-0" />
+													{/if}
+													<span class="truncate">{country.name}</span>
+													<span class="shrink-0 ml-auto text-white/60">({country.currency})</span>
+												</Command.Item>
+											{/each}
+										</div>
+									</ScrollArea.Root>
+								</Command.List>
+							</Command.Root>
+						</Popover.Content>
+					</Popover.Root>
+					
+					
+					
+					
+					
+					
 				</div>
 
 				<!-- Rest of your controls -->
-				<label class="flex cursor-pointer items-center gap-2 rounded-md bg-black/30 px-3 py-1.5">
+				<label class="flex cursor-pointer items-center gap-2 rounded-md bg-black/30 px-3 py-2">
 					<Settings2 class="h-4 w-4 text-purple-400" />
 					<span class="text-sm text-white">Nerd Mode</span>
 					<input type="checkbox" bind:checked={isNerdMode} class="h-4 w-4 rounded border-gray-700" />

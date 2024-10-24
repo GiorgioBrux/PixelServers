@@ -11,22 +11,19 @@
 	import dataCenters from '$lib/data/datacenters.json';
 	import { writable } from 'svelte/store';
 	import { onDestroy } from 'svelte';
+	import ModsPluginsMarquee from '$lib/components/ui-giorgio/mods-plugins-marquee/mods-plugins-marquee.svelte';
 
 	const dataCentersStore = writable(dataCenters);
 
 	async function ping_test(url: string): Promise<number> {
-    if (typeof window === 'undefined') {
-        return 0;
-    }
+		if (typeof window === 'undefined') {
+			return 0;
+		}
 
-    const built_url = new URL(url);
-    built_url.searchParams.set('t', Date.now().toString()); // Cache-busting param
-	return 0;
-}
-
-
-
-
+		const built_url = new URL(url);
+		built_url.searchParams.set('t', Date.now().toString()); // Cache-busting param
+		return 0;
+	}
 
 	// Test the latency of each data center every 5 seconds
 
@@ -69,7 +66,7 @@
 		</div>
 		<div class="absolute inset-0 bg-[url('/images/minecraft-bg.jpg')] bg-cover bg-center opacity-20"></div>
 	</section>
-	<section class="bg-black bg-opacity-50 py-16 backdrop-blur-md">
+	<section class="bg-black bg-opacity-50 pb-16 backdrop-blur-md">
 		<div class="container mx-auto px-4">
 			<div class="flex flex-col items-center justify-between gap-8 md:flex-row md:gap-16">
 				<div class="w-full rounded-xl bg-purple-800 bg-opacity-50 p-6 md:w-1/2 md:p-8">
@@ -99,7 +96,7 @@
 						{/each}
 					</ul>
 				</div>
-				<div class="relative px-12 aspect-square w-full overflow-visible md:w-1/2 md:max-w-md lg:max-w-lg xl:max-w-xl ">
+				<div class="relative aspect-square w-full overflow-visible px-12 md:w-1/2 md:max-w-md lg:max-w-lg xl:max-w-xl">
 					<BigGlobe />
 				</div>
 			</div>
@@ -135,7 +132,32 @@
 			</div>
 		</div>
 	</section>
-
+	<section class="relative overflow-hidden bg-gradient-to-b from-purple-900 to-black py-8">
+		<!-- Background Glow Effects -->
+		<div class="absolute inset-0 overflow-hidden">
+		  <div class="absolute -left-1/4 top-0 h-[500px] w-[500px] rounded-full bg-purple-500/20 blur-3xl"></div>
+		  <div class="absolute -right-1/4 bottom-0 h-[500px] w-[500px] rounded-full bg-indigo-500/20 blur-3xl"></div>
+		</div>
+	  
+		<!-- Contained Header -->
+		<div class="container relative mx-auto px-4">
+		  <div class="mx-auto mb-16 max-w-3xl text-center">
+			<h2 class="bg-gradient-to-r from-purple-200 to-pink-200 bg-clip-text pb-2 text-4xl font-bold text-transparent md:text-5xl">
+			  Mods? Plugins? We got em' all
+			</h2>
+			<p class="mt-2 text-lg text-purple-200 md:text-xl">
+			  One-click installs for hundreds of popular mods and plugins. No technical expertise needed.
+			</p>
+		  </div>
+		</div>
+	  
+		<!-- Full-width Marquee -->
+		<div class="relative w-full">
+		  <ModsPluginsMarquee />
+		</div>
+	  </section>
+	  
+	  
 	<section class="bg-gradient-to-b from-purple-900 to-black py-20">
 		<div class="container mx-auto">
 			<h2 class="mb-12 text-center text-4xl font-bold text-white">Choose Your Perfect Plan</h2>
