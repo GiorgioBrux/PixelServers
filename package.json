@@ -52,8 +52,11 @@
 	"type": "module",
 	"dependencies": {
 		"@supabase/supabase-js": "^2.45.6",
+		"@types/canvas-confetti": "^1.6.4",
+		"canvas-confetti": "^1.9.3",
 		"d3": "^7.9.0",
 		"ping": "^0.4.4",
+		"svelte-sonner": "^0.3.28",
 		"topojson-client": "^3.1.0"
 	}
 }
