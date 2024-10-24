@@ -1,8 +1,8 @@
 <script lang="ts">
     import Marquee from "$lib/components/ui-animation-svelte/marquee/Marquee.svelte";
     import ModrinthCard from "$lib/components/ui-giorgio/modrinth-card/modrinth-card.svelte";
-    import type { Mod, Modpack } from "$lib/data/staticData.svelte";
-    let {mods, modpacks} : {mods: Mod[], modpacks: Modpack[]} = $props();
+    import type { Mod, Modpack, Plugin } from "$lib/data/staticData.svelte";
+    let {mods, modpacks, plugins} : {mods: Mod[], modpacks: Modpack[], plugins: Plugin[]} = $props();
 
     $inspect(mods);
   </script>
@@ -21,8 +21,14 @@
         {/each}
     </Marquee>
   
-    <Marquee reverse pauseOnHover class="[--duration:25s]">
+    <Marquee reverse pauseOnHover class="[--duration:25s] mb-2">
         {#each modpacks as item}
+          <ModrinthCard {...item} />
+        {/each}
+    </Marquee>
+
+    <Marquee pauseOnHover class="[--duration:30s]">
+        {#each plugins as item}
           <ModrinthCard {...item} />
         {/each}
     </Marquee>

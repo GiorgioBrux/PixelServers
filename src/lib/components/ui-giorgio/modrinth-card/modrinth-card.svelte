@@ -2,7 +2,7 @@
     import { cn } from "$lib/utils";
     import * as Card from "$lib/components/ui/card/";
 
-    let {imgType, name, description, type}: {imgType: 'png' | 'gif', name: string, description: string, type: "mod" | "modpack"} = $props();
+    let {imgType, name, description, type}: {imgType: 'png' | 'gif', name: string, description: string, type: "mod" | "modpack" | "plugin"} = $props();
 
     //$inspect({img, name, description, type});
     // Truncate description to 100 characters
