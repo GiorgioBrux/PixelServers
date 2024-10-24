@@ -1,6 +1,11 @@
-<script>
+<script lang="ts">
     import { menu, legal } from "$lib/data/staticData.svelte";
+	import { Button } from "../ui/button";
 	import Input from "../ui/input/input.svelte";
+    import { Label } from "$lib/components/ui/label";
+    import { Switch } from "$lib/components/ui/switch";
+    import * as Tooltip from "$lib/components/ui/tooltip";
+    import { Info } from "lucide-svelte";
 
 </script>
 <footer class="bg-black bg-opacity-75 py-12 backdrop-blur-md">
@@ -28,7 +33,7 @@
         </div>
         <div>
             <h4 class="mb-4 text-lg font-semibold">Connect With Us</h4>
-            <p class="mt-4 text-sm text-gray-300">Subscribe to our newsletter for updates and special offers!</p>
+            <p class="text-sm text-gray-300">Subscribe to our newsletter for updates and special offers!</p>
             <div class="mt-2 flex">
                 <Input
                     type="email"
@@ -37,6 +42,19 @@
                 />
                 <Button class="ml-2 bg-purple-600 hover:bg-purple-700">Subscribe</Button>
             </div>
+            <div class="mt-4 flex items-center space-x-2">
+                <Switch/>
+                <Label class="text-sm text-gray-300">Nerd mode</Label>
+                <Tooltip.Root>
+                    <Tooltip.Trigger>
+                      <Info/>
+                    </Tooltip.Trigger>
+                    <Tooltip.Content side="bottom">
+                      <p class="text-sm text-black">We hide most details to keep the site clean for novice users. If you want to see more in-depth details, enable this. See you on the other side!</p>
+                    </Tooltip.Content>
+                  </Tooltip.Root>
+            </div>
+
         </div>
     </div>
     <div class="mt-8 border-t border-gray-700 pt-8 text-center text-sm text-gray-400">

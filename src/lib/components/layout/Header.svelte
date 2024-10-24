@@ -22,7 +22,7 @@
             <DropdownMenu>
                 <DropdownMenuTrigger>
                     <Avatar>
-                        <AvatarImage src="/images/user.png" alt="User" />
+                        <AvatarImage alt="User" />
                         <AvatarFallback>U</AvatarFallback>
                     </Avatar>
                 </DropdownMenuTrigger>

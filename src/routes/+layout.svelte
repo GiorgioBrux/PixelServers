@@ -20,10 +20,10 @@
 
 
 <div class="flex min-h-screen flex-col bg-gradient-to-br from-purple-900 to-indigo-900 text-white">
-	<Header toggleMenu/>
+	<Header {toggleMenu}/>
 	{@render children()}
 
 	<Footer/>
 
-	<MinMenu toggleMenu isMenuOpen/>
+	<MinMenu {toggleMenu} {isMenuOpen}/>
 </div>

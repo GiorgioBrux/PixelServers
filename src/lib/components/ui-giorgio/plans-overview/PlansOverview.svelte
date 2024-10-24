@@ -1,42 +1,89 @@
 <script lang="ts">
-    let { title, description, plans, overlayFrom, overlayTo, backgroundImage, classNames} : {title: string, description: string, plans: {ram: string, bestFor?: String, price: number}[], overlayFrom: string, overlayTo: String, backgroundImage: string, classNames ?: string} = $props();
+	let {
+		title,
+		description,
+		plans,
+		overlayFrom,
+		overlayTo,
+		backgroundImage,
+		classNames,
+		isNerdMode = false // Add this for the nerd mode toggle
+	}: {
+		title: string;
+		description: string;
+		plans: Plans[];
+		overlayFrom?: string;
+		overlayTo?: string;
+		backgroundImage?: string;
+		classNames?: string;
+		isNerdMode?: boolean;
+	} = $props();
 
 	import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '$lib/components/ui/card';
-    import { Button } from '$lib/components/ui/button';
+	import { Button } from '$lib/components/ui/button';
+	import { HardDrive, Clock, Cpu, Users, Zap } from 'lucide-svelte';
+	import type { Plans } from '$lib/data/staticData.svelte';
 </script>
-  
-  <Card class="relative rounded-xl border-blue-600 bg-cover {classNames}" style="background-color: url({backgroundImage}); color: #ffffff">
-    <!-- Overlay per l'immagine di sfondo -->
-    <div
-      class="pointer-events-none absolute inset-0 z-0 rounded-xl bg-gradient-to-r opacity-75 bg-gradient-to-r {overlayFrom} {overlayTo}"
-    ></div>
-  
-    <!-- Contenuto del Card sopra l'overlay -->
-    <div class="relative z-10 m-12">
-      <h1 class="mb-2 text-6xl font-semibold text-white">{title}</h1>
-      <p class="mb-8 text-2xl text-white">{description}</p>
-      <div class="grid gap-6 md:grid-cols-3">
-        {#each plans as plan}
-          <Card class="relative rounded-xl border-fuchsia-600">
-            <CardHeader>
-              <CardTitle>{plan.ram} RAM</CardTitle>
-              {#if plan.bestFor}
-                <CardDescription>Best for {plan.bestFor}</CardDescription>
-              {/if}
-            </CardHeader>
-            <CardContent>
-              <p class="text-3xl font-bold">${plan.price}/mo</p>
-            </CardContent>
-            <CardFooter>
-              <Button
-                size="lg"
-                class="w-full transform rounded-full bg-gradient-to-r from-purple-500 to-pink-500 px-8 py-3 font-bold text-white transition duration-300 hover:scale-105 hover:from-purple-600 hover:to-pink-600"
-                >Start Your Adventure</Button
-              >
-            </CardFooter>
-          </Card>
-        {/each}
-      </div>
-    </div>
-  </Card>
-  
+
+<div class="relative rounded-xl bg-gradient-to-br {overlayFrom} {overlayTo} p-8 {classNames}">
+	<div class="mb-8 text-center">
+		<h2 class="text-3xl font-bold text-white">{title}</h2>
+		<p class="text-white/80">{description}</p>
+	</div>
+
+	<div class="grid gap-6 md:grid-cols-3">
+		{#each plans.reverse() as plan}
+			<Card class="relative overflow-hidden bg-gray-900/50 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] hover:bg-gray-900/60">
+				{#if plan.mostPopular}
+					<div class="absolute right-0 top-0 m-2 rounded-full bg-yellow-500 px-4 py-1 text-sm font-bold text-black shadow-lg">Popular</div>
+				{/if}
+
+				<CardHeader>
+					<div class="flex items-center justify-center">
+						<CardTitle class="text-2xl font-bold text-white">
+							{plan.players}+ Players | {plan.ram}
+						</CardTitle>
+					</div>
+				</CardHeader>
+
+				<CardContent class="">
+					<div class="flex items-center justify-around">
+						<div>
+							<div class="flex items-center space-x-2 text-white/80">
+								<HardDrive class="h-4 w-4" />
+								<span>{plan.ssd}</span>
+							</div>
+
+							<div class="flex items-center space-x-2 text-white/80">
+								<Clock class="h-4 w-4" />
+								<span>{plan.backups?.slots} slots / {plan.backups?.frequency}</span>
+							</div>
+						</div>
+
+						<div class="text-right">
+							<div class="text-3xl font-bold text-white">{plan.price}€</div>
+							<div class="text-sm text-gray-400">/monthly</div>
+						</div>
+					</div>
+
+					{#if isNerdMode}
+						<div class="space-y-2 rounded-lg bg-black/20 p-3">
+							<div class="flex justify-between text-sm text-white/70">
+								<span>CPU</span>
+								<span>{plan.techSpecs?.cpuCores}</span>
+							</div>
+							<div class="flex justify-between text-sm text-white/70">
+								<span>IOPS</span>
+								<span>{plan.techSpecs?.iops}</span>
+							</div>
+						</div>
+					{/if}
+				</CardContent>
+
+				<CardFooter>
+					<Button class="w-full bg-blue-600 hover:bg-blue-700" size="lg">Add to Cart</Button>
+				</CardFooter>
+			</Card>
+		{/each}
+	</div>
+</div>
