@@ -48,9 +48,9 @@
 								variant="outline"
 								role="combobox"
 								aria-expanded={open}
-								class="h-9 w-[300px] items-center justify-between bg-black/30 text-white border-none transition-all duration-200 hover:bg-purple-500/20 group"
+								class="group h-9 w-[300px] items-center justify-between border-none bg-black/30 text-white transition-all duration-200 hover:bg-purple-500/20"
 							>
-								<div class="flex items-center gap-2 flex-1 min-w-0">
+								<div class="flex min-w-0 flex-1 items-center gap-2">
 									<Earth class="h-4 w-4 shrink-0 text-purple-400 group-hover:text-purple-300" />
 									{#if selectedCountry}
 										{@const FlagComponent = (Icon as Record<string, any>)[titleCase(selectedCountry)]}
@@ -58,7 +58,7 @@
 											<FlagComponent size="16" class="shrink-0" />
 										{/if}
 										<span class="truncate text-white group-hover:text-white">{data.countries.find((c) => c.code === selectedCountry)?.name}</span>
-										<span class="shrink-0 text-white/60 group-hover:text-white/80 ml-1">
+										<span class="ml-1 shrink-0 text-white/60 group-hover:text-white/80">
 											({data.countries.find((c) => c.code === selectedCountry)?.currency})
 										</span>
 									{/if}
@@ -66,25 +66,22 @@
 								<ChevronsUpDown class="ml-2 h-4 w-4 shrink-0 opacity-50 group-hover:opacity-80" />
 							</Button>
 						</Popover.Trigger>
-						
-						<Popover.Content class="w-[300px] p-0 bg-black/80 backdrop-blur-lg border-none shadow-xl">
-							<Command.Root class="bg-transparent">
 
-								<Command.Input 
-								placeholder="Search countries..." 
-								class="h-9 border-none bg-transparent text-sm text-white placeholder:text-white/60 focus:ring-0 focus:outline-none px-3 [&_svg]:text-white [&_svg]:opacity-70"
-							/>
+						<Popover.Content class="w-[300px] border-none bg-black/80 p-0 shadow-xl backdrop-blur-lg">
+							<Command.Root class="bg-transparent">
+								<Command.Input
+									placeholder="Search countries..."
+									class="h-9 border-none bg-transparent px-3 text-sm text-white placeholder:text-white/60 focus:outline-none focus:ring-0 [&_svg]:text-white [&_svg]:opacity-70"
+								/>
 								<Command.List>
-									<Command.Empty class="py-2 px-3 text-sm text-white/60">
-										No country found.
-									</Command.Empty>
+									<Command.Empty class="px-3 py-2 text-sm text-white/60">No country found.</Command.Empty>
 									<ScrollArea.Root class="h-[180px]">
 										<div class="p-1">
 											{#each data.countries as country}
 												{@const FlagComponent = (Icon as Record<string, any>)[titleCase(country.code)]}
 												<Command.Item
 													value={country.name}
-													class="flex cursor-pointer items-center gap-2 px-2 py-1.5 text-sm text-white rounded-lg transition-colors duration-200
+													class="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-1.5 text-sm text-white transition-colors duration-200
 														   hover:bg-purple-500/20 hover:text-purple-200
 														   data-[selected=true]:bg-purple-500/30 data-[selected=true]:text-purple-100"
 													onSelect={() => {
@@ -96,7 +93,7 @@
 														<FlagComponent size="16" class="shrink-0" />
 													{/if}
 													<span class="truncate">{country.name}</span>
-													<span class="shrink-0 ml-auto text-white/60">({country.currency})</span>
+													<span class="ml-auto shrink-0 text-white/60">({country.currency})</span>
 												</Command.Item>
 											{/each}
 										</div>
@@ -105,12 +102,6 @@
 							</Command.Root>
 						</Popover.Content>
 					</Popover.Root>
-					
-					
-					
-					
-					
-					
 				</div>
 
 				<!-- Rest of your controls -->

@@ -1,11 +1,22 @@
-<script>
+<script lang="ts">
     import { menu } from '$lib/data/staticData.svelte';
     import { Menu } from 'lucide-svelte';
     import { AvatarImage, AvatarFallback } from '../ui/avatar';
     import { DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenu } from '../ui/dropdown-menu';
     import Avatar from '../ui/avatar/avatar.svelte';
     import Button from '../ui/button/button.svelte';
+    import { page } from '$app/stores';
+
     let { toggleMenu } = $props();
+
+    // Function to check if menu item is active
+    const isActive = (href: string) => {
+        const currentPath = $page.url.pathname;
+        if (href === '/') {
+            return currentPath === '/';
+        }
+        return currentPath.startsWith(href);
+    };
 </script>
 
 <header class="sticky top-0 z-50 w-full border-b border-purple-300/10 bg-black/75 backdrop-blur-lg">
@@ -23,13 +34,18 @@
                 {#each menu as item}
                     <a 
                         href={item.href} 
-                        class="inline-flex items-center justify-center rounded-md px-4 py-1.5 text-m font-medium text-purple-200/70 transition-all hover:bg-purple-400/10 hover:text-purple-100 focus:bg-purple-400/10 focus:text-purple-100 focus:outline-none"
+                        class="inline-flex items-center justify-center rounded-md px-4 py-1.5 text-m font-medium 
+                        {isActive(item.href) ? 
+                            'bg-purple-400/10 text-purple-100' : 
+                            'text-purple-200/70 hover:bg-purple-400/10 hover:text-purple-100'} 
+                        transition-all focus:outline-none relative"
                     >
                         {item.title}
                     </a>
                 {/each}
             </nav>
 
+            <!-- Rest of the header remains the same -->
             <div class="flex items-center space-x-4">
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>

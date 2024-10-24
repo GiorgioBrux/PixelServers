@@ -112,7 +112,7 @@
 	});
 </script>
 
-<div class="h-full w-full">
+<div class="h-full w-full  ">
 	<svg class="block h-full w-full" viewBox="0 0 300 300" preserveAspectRatio="xMidYMid meet">
 		<g class="draggable-area">
 			<!-- Globe outline with transparent fill -->
