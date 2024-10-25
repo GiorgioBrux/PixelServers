@@ -1,31 +1,51 @@
-import { getPlans } from '$lib/data/staticData.svelte.js';
-import * as Icon from 'svelte-flags';
-import { get } from 'svelte/store';
+// src/routes/plans/+page.ts
+import type { Country, Plan, Plans } from '$lib/types/plans';
+import { detectUserCountryWithValidation } from '$lib/utils/geolocalization';
+import type { PageLoad } from './$types';
 
-const getFlagComponent = (countryCode: string) => {
-    const code = countryCode.toLowerCase();
-    return (Icon as Record<string, any>)[code.charAt(0).toUpperCase() + code.slice(1).toLowerCase()];
+
+export const load: PageLoad = async ({ fetch, url }) => {
+
+    const [countriesResponse, plansResponse] = await Promise.all([
+        fetch('/api/stripe/countries'),
+        fetch(`/api/stripe/plans`)
+    ]);
+
+    const countries : Country[] = await countriesResponse.json();
+    const plans : Plans = await plansResponse.json();
+
+    const planCategories = [
+        {
+            title: 'Vanilla Plans',
+            description: 'Perfect for vanilla Minecraft servers',
+            plans: plans.vanillaPlans,
+            overlayFrom: 'from-blue-600',
+            overlayTo: 'to-blue-900',
+            classNames: ''
+        },
+        {
+            title: 'Modpack Plans',
+            description: 'Optimized for modded Minecraft',
+            plans: plans.modpackPlans,
+            overlayFrom: 'from-orange-600',
+            overlayTo: 'to-orange-900',
+            classNames: 'mt-12'
+        },
+        {
+            title: 'Community Plans',
+            description: 'For large communities and networks',
+            plans: plans.communityPlans,
+            overlayFrom: 'from-red-600',
+            overlayTo: 'to-red-900',
+            classNames: 'mt-12'
+        }
+    ];
+    
+
+    return { 
+        countries,
+        planCategories,
+        guessedCountry: await detectUserCountryWithValidation(countries.map(c => c.code)),
+    };
 };
 
-export async function load({ fetch, params }) {
-    const response = await fetch('/api/stripe/countries');
-    const data = await response.json();
-    const countries = data.map((country: { id: string; default_currency: string; }) => ({
-        code: country.id,
-        currency: country.default_currency.toUpperCase(),
-        name: new Intl.DisplayNames(['en'], { type: 'region' }).of(country.id),
-        FlagComponent: `Icon.${country.id}`
-    })) as {
-        code: string;
-        currency: string;
-        name: string;
-        FlagComponent: any; // Adjust the type if you know the specific type of the FlagComponent
-    }[];
-
-    // Fetch plans
-    const plansResponse = await fetch('/api/stripe/plans');
-    const unwrappedPlansResponse = await plansResponse.json();
-    const plans = getPlans(unwrappedPlansResponse.vanillaPlans, unwrappedPlansResponse.modpackPlans, unwrappedPlansResponse.communityPlans);
-
-    return {countries, plans}
-}

@@ -1,6 +1,5 @@
 //Data Leyout
 export { menu, legal, features, popularMods, popularModpacks };
-export type { Plans }
 
 import { Shield, Cpu, Zap, Map, Users, Clock, Lock, Database, Cloud, Globe, Bot, Download, Gauge, Gift, Heart, Server, Settings, Star, Terminal, Wifi, Gamepad, Blocks, Bookmark, Boxes, Coins, Command, FileJson, HardDrive, Laptop, LayoutGrid, MessageSquare, MonitorPlay, Puzzle, Rocket, ScrollText, Share2, ShieldCheck, Siren, Sparkles, Workflow } from 'lucide-svelte';
 
@@ -42,60 +41,6 @@ let legal = [
         title: "Refund Policy"
     },
 ]
-
-// Data Plans
-export { getPlans };
-
-
-interface Plans {
-    ram: string;
-    price: number;
-    bestFor?: string;
-    players: string;
-    ssd: string;
-    mostPopular?: boolean;
-    backups?: {
-        frequency: string;
-        slots: number;
-    };
-    techSpecs?: {
-        cpuSpeed: string;
-        cpuCores: string;
-        iops: string;
-    };
-}
-
-
-function getPlans(vanillaPlans: Plans, modpackPlans: Plans, communitiesPlans: Plans) {
-    return [
-        {
-            title: 'Best for vanilla',
-            description: 'Plans optimized for vanilla Minecraft servers. Perfect for small to medium groups, or light modding.',
-            plans: vanillaPlans,
-            overlayFrom: 'from-blue-600',
-            overlayTo: 'to-blue-800',
-            backgroundImage: '/images/vanilla-bg.png'
-        },
-        {
-            title: 'Best for modpacks and communities',
-            description: 'Plans optimized for heavier modpacks and larger communities. Perfect for larger groups, or heavy modding.',
-            plans: modpackPlans,
-            overlayFrom: 'from-orange-600',
-            overlayTo: 'to-orange-800',
-            backgroundImage: '/images/modded-bg.jpg',
-            classNames: 'mt-12'
-        },
-        {
-            title: 'Best for large communities',
-            description: 'Plans designed to sustain high player counts and very large communities.',
-            plans: communitiesPlans,
-            overlayFrom: 'from-red-600',
-            overlayTo: 'to-red-800',
-            backgroundImage: '/images/community-bg.jpg',
-            classNames: 'mt-12'
-        }
-    ];
-}
 
 
 const features = [

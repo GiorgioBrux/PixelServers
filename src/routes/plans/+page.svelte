@@ -1,16 +1,30 @@
+<!-- src/routes/plans/+page.svelte -->
 <script lang="ts">
-    import type { PageData } from './$types';
-    import { Separator } from '$lib/components/ui/separator';
-    import { Loader2 } from 'lucide-svelte';
+    import PlansOverview from '$lib/components/plans/components/plans-overview/PlansOverview.svelte';
     import ControlsBar from '$lib/components/plans/controls-bar/controls-bar.svelte';
-    import FeaturesList from '$lib/components/plans/features-list/features-list.svelte';
     import CustomPlanCta from '$lib/components/plans/custom-plan-cta/custom-plan-cta.svelte';
-	import PlansOverview from '$lib/components/ui-giorgio/plans-overview/PlansOverview.svelte';
+    import FeaturesList from '$lib/components/plans/features-list/features-list.svelte';
+    import Separator from '$lib/components/ui/separator/separator.svelte';
+	import type { Country } from '$lib/types/plans';
+    import type { PageData } from './$types';
 
-    const { data } = $props<{ data: PageData }>();
+    const { data } : {data: PageData} = $props();
 
     let isNerdMode = $state(false);
-    let selectedCountry = $state('Us');
+    let selectedCountry = $state(data.guessedCountry || 'US');
+    let selectedCurrency = $derived(
+        data.countries.find((c: Country) => c.code === selectedCountry)?.currency || 'USD'
+    );
+
+	$inspect(selectedCurrency);
+	$inspect(selectedCountry)
+
+    let currencySymbol = $derived(
+        new Intl.NumberFormat('en', { 
+            style: 'currency', 
+            currency: selectedCurrency 
+        }).format(0).replace(/[\d.]/g, '')
+    );
 </script>
 
 <main class="flex-grow bg-gradient-to-b from-purple-800 to-indigo-900">
@@ -22,19 +36,18 @@
 
         <ControlsBar 
             countries={data.countries} 
-            bind:selectedCountry 
+            bind:selectedCountry
             bind:isNerdMode 
         />
 
-        {#if data.plans.length === 0}
-            <div class="flex justify-center">
-                <Loader2 class="h-8 w-8 animate-spin text-purple-400" />
-            </div>
-        {:else}
-            {#each data.plans as plan}
-                <PlansOverview {...plan} plans={Array.isArray(plan.plans) ? plan.plans : [plan.plans]} />
-            {/each}
-        {/if}
+        {#each data.planCategories as category}
+            <PlansOverview 
+                {...category}
+                {isNerdMode}
+                currency={selectedCurrency}
+                countryCode={selectedCountry}
+            />
+        {/each}
 
         <Separator class="my-10" />
 

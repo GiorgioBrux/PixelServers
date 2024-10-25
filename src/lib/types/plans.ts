@@ -3,14 +3,41 @@ export interface Country {
     code: string;
     currency: string;
     name: string;
-    FlagComponent: any; // We can make this more specific later
+}
+
+export interface TechSpecs {
+    cpuCores: string;
+    iops: string;
+}
+
+export interface Backups {
+    slots: number;
+    frequency: string;
 }
 
 export interface Plan {
-    // Add plan interface here based on your data structure
+    players: string;
+    ram: string;
+    ssd: string;
+    backups: Backups;
+    techSpecs: TechSpecs;
+    mostPopular: boolean;
+    prices: {
+        [currency: string]: number;
+    };
 }
 
-export interface PlansPageData {
-    countries: Country[];
+export interface Plans {
+    vanillaPlans: Plan[];
+    modpackPlans: Plan[];
+    communityPlans: Plan[];
+}
+
+export interface PlanCategory {
+    title: string;
+    description: string;
     plans: Plan[];
+    overlayFrom?: string;
+    overlayTo?: string;
+    classNames?: string;
 }

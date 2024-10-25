@@ -3,14 +3,12 @@
     import { Settings2, Info } from 'lucide-svelte';
     import type { Country } from '$lib/types/plans';
 
-    export let countries: Country[];
-    export let selectedCountry: string;
-    export let isNerdMode: boolean;
+    let {countries, selectedCountry = $bindable(), isNerdMode = $bindable()} : {countries: Country[], selectedCountry: string, isNerdMode: boolean}= $props();
 </script>
 
 <div class="mb-8 flex flex-wrap items-center justify-between gap-4 rounded-lg bg-black/20 p-4 backdrop-blur-sm">
     <div class="flex flex-wrap items-center gap-4">
-        <CountrySelector {countries} {selectedCountry} open={false} />
+        <CountrySelector {countries} bind:selectedCountry bind:isNerdMode open={false} />
 
         <label class="flex cursor-pointer items-center gap-2 rounded-md bg-black/30 px-3 py-2">
             <Settings2 class="h-4 w-4 text-purple-400" />

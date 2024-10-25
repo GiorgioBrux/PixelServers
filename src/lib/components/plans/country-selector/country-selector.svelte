@@ -8,7 +8,7 @@
 	import type { Country } from '$lib/types/plans';
 	import { tick } from 'svelte';
 
-	let { countries, selectedCountry, open } = $props<{ countries: Country[], selectedCountry: string, open: boolean }>();
+	let { countries, selectedCountry = $bindable(), open, isNerdMode = $bindable() } = $props<{ countries: Country[], selectedCountry: string, open: boolean, isNerdMode: boolean }>();
 
 	const titleCase = (str: string) => `${str[0].toUpperCase()}${str.slice(1).toLowerCase()}`;
 
